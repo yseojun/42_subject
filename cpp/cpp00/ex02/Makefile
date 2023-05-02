@@ -1,9 +1,9 @@
-NAME =
+NAME = account
 
-CC = 
-CFLAGS = -Wall -Wextra -Werror
+CC = c++
+CFLAGS = -Wall -Wextra -Werror -std=c++98
 
-SRCS =
+SRCS = Account.cpp tests.cpp
 OBJS = $(SRCS:.cpp=.o)
 
 %.o : %.c
