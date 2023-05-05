@@ -2,12 +2,10 @@
 #include <iostream>
 
 Phonebook::Phonebook( void ){
-	std::cout << "Phonebook constructor called" << std::endl;
 	return ;
 }
 
 Phonebook::~Phonebook( void ){
-	std::cout << "Phonebook destructor called" << std::endl;
 	return ;
 }
 

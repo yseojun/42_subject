@@ -12,8 +12,8 @@ int main(void)
 		std::cout << "Enter a command: ";
 		std::string	command;
 		std::getline(std::cin, command);
-		if (command == "EXIT")
-			break ;
+		if (std::cin.eof() || command == "EXIT")
+			return 0;
 		else if (command == "ADD")
 		{
 			phonebook.add(count % 8);

@@ -1,7 +1,6 @@
 #include "Contact.hpp"
 
 Contact::Contact( void ) {
-	std::cout << "Contact constructor called" << std::endl;
 	this->first_name = "";
 	this->last_name = "";
 	this->nickname = "";
