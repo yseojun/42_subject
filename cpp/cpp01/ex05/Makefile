@@ -1,9 +1,10 @@
-NAME =
+NAME = ex05
 
 CC = c++
 CFLAGS = -Wall -Wextra -Werror -std=c++98
 
-SRCS =
+SRCS = main.cpp \
+	Harl.cpp
 OBJS = $(SRCS:.cpp=.o)
 
 %.o : %.c
