@@ -41,9 +41,13 @@ void Harl::complain(std::string level)
 	int	idx = 0;
 	while (idx < 4)
 	{
-		if (level == level_str[idx++])
+		if (level == level_str[idx])
 			break ;
+		idx++;
 	}
+
+	if (idx == 4)
+		std::cout << "Invalid level." << std::endl;
 
 	switch (idx)
 	{
@@ -57,7 +61,6 @@ void Harl::complain(std::string level)
 			error();
 			break ;
 		default:
-			std::cout << "Invalid level." << std::endl;
 			break ;
 	}
 

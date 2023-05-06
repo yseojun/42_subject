@@ -1,20 +1,12 @@
 #include "Harl.hpp"
 
-int main(void)
+int main(int ac, char **av)
 {
 	Harl harl;
 
-	std::cout << "---------Debug---------" << std::endl;
-	harl.complain("debug");
-	std::cout << std::endl << "---------Info---------" << std::endl << std::endl;
-	harl.complain("info");
-	std::cout << std::endl << "---------Warning---------" << std::endl << std::endl;
-	harl.complain("warning");
-	std::cout << std::endl << "---------Error---------" << std::endl << std::endl;
-	harl.complain("error");
-	std::cout << std::endl << "---------Invalid---------" << std::endl << std::endl;
-	harl.complain("fatal");
-	std::cout << std::endl;
-
+	if (ac != 2)
+		std::cout << "Usage: ./ex06 <level>" << std::endl;
+	else
+		harl.complain(av[1]);
 	return (0);
 }
