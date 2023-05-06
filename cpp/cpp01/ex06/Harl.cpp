@@ -46,11 +46,11 @@ void Harl::complain(std::string level)
 		idx++;
 	}
 
-	if (idx == 4)
-		std::cout << "Invalid level." << std::endl;
-
 	switch (idx)
 	{
+		case 4:
+			std::cout << "[Probably complaining about insignificant problems]" << std::endl;
+			break ;
 		case 0:
 			debug();
 		case 1:
