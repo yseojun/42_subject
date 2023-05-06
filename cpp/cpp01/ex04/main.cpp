@@ -24,10 +24,10 @@ int main(int ac, char **av) {
 		return 1;
 	}
 
-	std::string line;
+	std::string	line;
 	std::string	output;
-	while (std::getline(file, line)) {
-	
+	while (std::getline(file, line))
+	{
 		size_t pos = line.find(to_find);
 		while (pos != std::string::npos) 
 		{
@@ -38,7 +38,6 @@ int main(int ac, char **av) {
 		output += line + "\n";
 	}
 	file.close();
-
 
 	outfile << output;
 	outfile.close();
