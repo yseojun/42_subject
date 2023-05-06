@@ -34,8 +34,8 @@ void	Harl::error(void)
 		<< "This is unacceptable, I want to speak to the manager now." << std::endl;
 }
 
-void Harl::complain(std::string level)
-{
+void Harl::complain(std::string level){
+
 	static const std::string level_str[4] = {"debug", "info", "warning", "error"};
 
 	void (Harl::*level_func[4])() = { &Harl::debug, &Harl::info, &Harl::warning, &Harl::error };
@@ -50,5 +50,5 @@ void Harl::complain(std::string level)
 	}
 
 	std::cout << "Invalid level." << std::endl;
-	
+
 }

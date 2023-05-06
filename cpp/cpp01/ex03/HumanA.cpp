@@ -2,7 +2,11 @@
 
 HumanA::HumanA(std::string name, Weapon &something): weapon(something){
 	this->name = name;
-	this->weapon = something;
+	std::cout << this->name << " is born!" << std::endl;
+};
+
+HumanA::~HumanA(){
+	std::cout << this->name << " is dead!" << std::endl;
 };
 
 void	HumanA::attack(void)

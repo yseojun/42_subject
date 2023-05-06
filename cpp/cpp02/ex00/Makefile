@@ -1,16 +1,16 @@
-NAME = ex0
+NAME = ex00
 
 CC = c++
-CFLAGS = -Wall -Wextra -Werror -std=c++98
+CXXFLAGS = -Wall -Wextra -Werror -std=c++98
 
 SRCS = main.cpp
 OBJS = $(SRCS:.cpp=.o)
 
 %.o : %.c
-	$(CC) $(CFLAGS) -c $< -o $@
+	$(CC) $(CXXFLAGS) -c $< -o $@
 
 $(NAME) : $(OBJS)
-	$(CC) $(CFLAGS) -o $(NAME) $(OBJS)
+	$(CC) $(CXXFLAGS) -o $(NAME) $(OBJS)
 
 all : $(NAME)
 

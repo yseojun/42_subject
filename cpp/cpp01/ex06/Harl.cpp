@@ -38,10 +38,10 @@ void Harl::complain(std::string level)
 {
 
 	static const std::string level_str[4] = {"debug", "info", "warning", "error"};
-	int	idx;
-	for (idx = 0; idx < 4; idx++)
+	int	idx = 0;
+	while (idx < 4)
 	{
-		if (level == level_str[idx])
+		if (level == level_str[idx++])
 			break ;
 	}
 
