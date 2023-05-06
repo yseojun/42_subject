@@ -2,10 +2,12 @@
 
 Zombie::Zombie(){
 	this->name = "Zombie";
+	std::cout << "Normal Zombie is born!" << std::endl;
 };
 
 Zombie::Zombie(std::string	name){
 	this->name = name;
+	std::cout << this->name << " is born!" << std::endl;
 };
 
 Zombie::~Zombie(){

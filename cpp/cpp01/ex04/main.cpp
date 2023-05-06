@@ -4,7 +4,10 @@
 int main(int ac, char **av) {
 
 	if (ac != 4)
+	{
+		std::cout << "Usage: ./ex04 <filename> <string to find> <string to replace>" << std::endl;
 		return (0);
+	}
 
 	std::string filename = av[1];	
 	std::string to_find = av[2];
@@ -20,7 +23,7 @@ int main(int ac, char **av) {
 	std::ofstream outfile(filename + ".replace");
 	if (!outfile.is_open())
 	{
-		std::cerr << "Failed to open file: " << filename << ".replace" << std::endl;
+		std::cerr << "Failed to open replace file: " << filename << ".replace" << std::endl;
 		return 1;
 	}
 

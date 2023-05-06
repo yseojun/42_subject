@@ -5,13 +5,14 @@ Zombie	*newZombie(std::string name);
 
 int main(void)
 {
-	Zombie	*z1;
-	Zombie	hi;
+	Zombie	*strong;
+	Zombie	normal;
 
-	hi.announce();
-	z1 = newZombie("Strong Zombie");
-	z1->announce();
-	delete z1;
-	randomChump("Instance");
+	randomChump("Instance1");
+	normal.announce();
+	strong = newZombie("Strong Zombie");
+	strong->announce();
+	randomChump("Instance2");
+	delete strong;
 	return (0);
 }

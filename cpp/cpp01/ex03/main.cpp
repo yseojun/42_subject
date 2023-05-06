@@ -5,6 +5,7 @@
 int main(void)
 {
 	{
+		std::cout << "----- HumanA -----" << std::endl;
 		Weapon club = Weapon("crude spiked club");
 		HumanA bob("Bob", club);
 		bob.attack();
@@ -12,6 +13,7 @@ int main(void)
 		bob.attack();
 	}
 	{
+		std::cout << std::endl << "----- HumanB -----" << std::endl;
 		Weapon club = Weapon("crude spiked club");
 		HumanB jim("Jim");
 		jim.attack();

@@ -2,7 +2,7 @@
 
 Zombie::Zombie(){
 	this->name = "Zombie";
-	std::cout << this->name << " is born!" << std::endl;
+	std::cout << "Normal Zombie is born!" << std::endl;
 };
 
 Zombie::Zombie(std::string	name){
@@ -12,11 +12,6 @@ Zombie::Zombie(std::string	name){
 
 Zombie::~Zombie(){
 	std::cout << this->name << " is dead!" << std::endl;
-};
-
-Zombie	&Zombie::operator=(const Zombie &rhs){
-	this->name = rhs.name;
-	return (*this);
 };
 
 void	Zombie::announce(void){

@@ -7,7 +7,7 @@ int main(void)
 	std::string	&address = brain;
 	
 	std::cout << "address of string : " << &brain << std::endl
-			<< "address of strPTR : " << pointer << std::endl
+			<< "address of strPTR : " << &pointer << std::endl
 			<< "address of strREF : " << &address << std::endl;
 
 	std::cout << "value of string : " << brain << std::endl

@@ -9,7 +9,6 @@ class Zombie{
 		Zombie();
 		Zombie(std::string name);
 		~Zombie();
-		Zombie	&operator=(const Zombie &rhs);
 
 		void	announce();
 		void	setName(std::string name);
