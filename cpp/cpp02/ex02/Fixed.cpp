@@ -9,7 +9,7 @@ Fixed::Fixed(const int value)
 };
 
 Fixed::Fixed(const float value)
-	:fixedPointValue(value * (1 << fractionalBits)){
+	:fixedPointValue(roundf(value * (1 << fractionalBits))){
 };
 
 Fixed::Fixed(const Fixed &src){
