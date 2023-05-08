@@ -12,17 +12,17 @@ bool	bsp(Point const a, Point const b, Point const c, Point const point)
     Fixed x = point.getX();
     Fixed y = point.getY();
 
-    Fixed tri = (x2 - x1) * (y3 - y1) - (y2 - y1) * (x3 - x1);
+    Fixed tri = x1 * y2 + x2 * y3 + x3 * y1 - x1 * y3 - x2 * y1 - x3 * y2;
     if (tri < 0)
         tri = tri * -1;
 
-    Fixed t1 = (x2 - x1) * (y - y1) - (y2 - y1) * (x - x1);
+    Fixed t1 = x * y2 + x2 * y3 + x3 * y - x * y3 - x2 * y - x3 * y2;
     if (t1 < 0)
         t1 = t1 * -1;
-    Fixed t2 = (x3 - x2) * (y - y2) - (y3 - y2) * (x - x2);
+    Fixed t2 = x * y1 + x1 * y3 + x3 * y - x * y3 - x1 * y - x3 * y1;
     if (t2 < 0)
         t2 = t2 * -1;
-    Fixed t3 = (x1 - x3) * (y - y3) - (y1 - y3) * (x - x3);
+    Fixed t3 = x * y1 + x1 * y2 + x2 * y - x * y2 - x1 * y - x2 * y1;
     if (t3 < 0)
         t3 = t3 * -1;
 

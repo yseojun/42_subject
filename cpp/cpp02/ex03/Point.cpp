@@ -1,4 +1,5 @@
 #include "Point.hpp"
+#include "Fixed.hpp"
 
 Point::Point(): x(0), y(0){
 };
@@ -18,18 +19,16 @@ Point::~Point(void){
 
 Point& Point::operator=(const Point &rhs)
 {
-    if (this != &rhs)
-	{
-		const_cast<Fixed&>(x) = rhs.x;
-		const_cast<Fixed&>(y) = rhs.y;
-	}
-    return *this;
+	this->~Point();
+
+	new(this)	Point(rhs.x.toFloat(), rhs.y.toFloat());
+	return (*this);
 }
 
-Fixed	Point::getX(void) const{
+Fixed	const Point::getX(void) const{
 	return x;
 };
 
-Fixed	Point::getY(void) const{
+Fixed	const Point::getY(void) const{
 	return y;
 };
