@@ -2,6 +2,8 @@
 
 MateriaSource::MateriaSource(){
 	std::cout << "MateriaSource parametric constructor called" << std::endl;
+	for (int i = 0; i < 4; i++)
+		this->save[i] = NULL;
 };
 
 MateriaSource::MateriaSource(MateriaSource const & src){
@@ -11,6 +13,9 @@ MateriaSource::MateriaSource(MateriaSource const & src){
 
 MateriaSource::~MateriaSource(){
 	std::cout << "MateriaSource destructor called" << std::endl;
+	for (int i = 0; i < 4; i++)
+		if (this->save[i] != NULL)
+			delete this->save[i];
 };
 
 MateriaSource	&MateriaSource::operator=(MateriaSource const & rhs){

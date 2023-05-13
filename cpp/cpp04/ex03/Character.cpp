@@ -15,13 +15,16 @@ Character::Character(std::string const & name) : name(name){
 Character::Character(Character const & src){
 	std::cout << "Character copy constructor called" << std::endl;
 	*this = src;
+	for(int i = 0; i < 4; i++)
+		if (src.inventory[i] != NULL)
+			delete this->inventory[i];
+	for(int i = 0; i < 4; i++)
+		if (src.inventory[i] != NULL)
+			this->inventory[i] = src.inventory[i]->clone();
 };
 
 Character::~Character(){
 	std::cout << "Character destructor called" << std::endl;
-	for (int i = 0; i < 4; i++)
-		if (this->inventory[i] != NULL)
-			delete this->inventory[i];
 };
 
 Character	&Character::operator=(Character const & rhs){
@@ -56,11 +59,20 @@ void Character::equip(AMateria* m){
 void	Character::unequip(int idx){
 	if (idx < 0 || idx > 3)
 		return ;
+	std::cout << "Unequipped " << this->inventory[idx]->getType() << std::endl;
 	this->inventory[idx] = NULL;
 };
 
 void	Character::use(int idx, ICharacter& target){
-	if (idx < 0 || idx > 3 || this->inventory[idx] == NULL)
+	if (idx < 0 || idx > 3)
+	{
+		std::cout << "Invalid index" << std::endl;
 		return ;
+	}
+	else if (this->inventory[idx] == NULL)
+	{
+		std::cout << "No materia at this index" << std::endl;
+		return ;
+	}
 	this->inventory[idx]->use(target);
 };

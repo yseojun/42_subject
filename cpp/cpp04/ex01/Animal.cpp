@@ -36,3 +36,8 @@ std::string Animal::getIdea(int i) const{
 	i = 0;
 	return ("...");
 };
+
+void	Animal::setIdea(int i, std::string idea){
+	i = 0;
+	idea = "...";
+};

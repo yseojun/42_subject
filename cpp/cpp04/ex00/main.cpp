@@ -15,6 +15,9 @@ int main()
 	j->makeSound();
     meta->makeSound();
 
+	const Animal* k = j;
+	k->makeSound();
+
 	std::cout << std::endl;
 
 	delete meta;

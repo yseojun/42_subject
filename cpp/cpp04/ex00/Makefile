@@ -7,7 +7,7 @@ SRCS = main.cpp \
 	Animal.cpp \
 	Dog.cpp \
 	Cat.cpp
-SRCS_WRONG = main_wrong.cpp \
+SRCS_WRONG = wrong_main.cpp \
 	WrongAnimal.cpp \
 	WrongCat.cpp
 OBJS = $(SRCS:.cpp=.o)

@@ -20,7 +20,7 @@ Cure	&Cure::operator=(Cure const & rhs){
 };
 
 AMateria* Cure::clone() const{
-	return new Cure(*this);
+	return new Cure();
 };
 
 void	Cure::use(ICharacter& target){
