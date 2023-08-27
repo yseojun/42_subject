@@ -6,8 +6,9 @@ int main(void)
 	{
 		std::cout << '\n';
 		Form first = Form("First", false, 150, 100);
+		Bureaucrat seojyang = Bureaucrat("seojyang",10);
 		std::cout << first; 
-		std::cout << '\n';
+		seojyang.signForm(first);
 	}
 
 	{

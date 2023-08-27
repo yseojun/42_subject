@@ -44,7 +44,6 @@ void	Form::beSigned(Bureaucrat man){
 	if (this->getSignGrade() < man.getGrade())
 		throw "Form's grade is higher than Bureaucrat!";
 	this->isSigned = true;
-	std::cout << man.getName() << " signed " << this->getName() << std::endl;
 };
 
 std::ostream& operator<<(std::ostream& os, const Form &rhs){

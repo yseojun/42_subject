@@ -19,6 +19,7 @@ int main(void)
 	}
 
 	{
+		std::cout << std::endl;
 		ShrubberyCreationForm	a("home");
 		RobotomyRequestForm		b("away");
 		PresidentialPardonForm	c("asd");
