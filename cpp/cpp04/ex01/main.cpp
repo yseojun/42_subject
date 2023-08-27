@@ -36,6 +36,9 @@ int main()
 
 	std::cout << std::endl;
 
+	Dog A;
+	Dog B = A;
+
 	delete meta;
 	delete j;
 	delete i;
