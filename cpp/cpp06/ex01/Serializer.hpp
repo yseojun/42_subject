@@ -16,13 +16,8 @@ class Serializer{
 		Serializer &operator=(Serializer const & rhs) { rhs.deserialize(0); return *this; };
 
 	public: 
-		static uintptr_t	serialize(Data *ptr){
-			return reinterpret_cast< uintptr_t > (ptr);
-		};
-
-		static Data*		deserialize(uintptr_t raw){
-			return reinterpret_cast< Data* > (raw);
-		};
+		static uintptr_t	serialize(Data *ptr);
+		static Data*		deserialize(uintptr_t raw);
 };
 
 #endif
