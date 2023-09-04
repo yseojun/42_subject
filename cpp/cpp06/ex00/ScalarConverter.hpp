@@ -14,8 +14,8 @@ class ScalarConverter
 		static double			integralPart;
 		static double			fractionalPart;
 
-		ScalarConverter() {};
-		~ScalarConverter() {};
+		ScalarConverter();
+		~ScalarConverter();
 		ScalarConverter(ScalarConverter const & src);
 		ScalarConverter	& operator=(ScalarConverter const & rhs);
 

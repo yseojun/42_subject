@@ -6,6 +6,13 @@ double ScalarConverter::raw = 0;
 double ScalarConverter::integralPart = 0;
 double ScalarConverter::fractionalPart = 0;
 
+
+ScalarConverter::ScalarConverter() {
+};
+
+ScalarConverter::~ScalarConverter() {
+};
+
 ScalarConverter::ScalarConverter(ScalarConverter const & src) {
     _input = src._input;
     isValid = src.isValid;
@@ -30,7 +37,10 @@ void	ScalarConverter::convert(std::string const & literal){
     _input = literal;
     isValid = chkIsValid();
     if (isValid) {
-        raw = strtod(_input.c_str(), 0);
+        if (_input.size() == 1 && !isdigit(_input[0]) && isprint(_input[0]))
+            raw = static_cast< double > (_input[0]);
+        else
+            raw = strtod(_input.c_str(), 0);
         fractionalPart = std::modf(raw, &integralPart);
     }
     else {
@@ -43,7 +53,7 @@ void	ScalarConverter::convert(std::string const & literal){
 }
 
 bool ScalarConverter::chkIsValid() {
-    if (_input.empty() || _input == "-" || _input == "+") {
+    if (_input.empty()) {
         return false;
     }
 
@@ -55,7 +65,8 @@ bool ScalarConverter::chkIsValid() {
         char c = *it;
 
         if (c == '.') {
-            if (isDecimalPoints || it == _input.begin() || it == _input.end()) { // .으로 시작, 여러 개
+            if (isDecimalPoints || (it == _input.begin() && _input.size() != 1)
+                || it + 1 == _input.end()) { // .으로 시작, 여러 개
                 return false;
             }
             isDecimalPoints = true;
@@ -68,6 +79,8 @@ bool ScalarConverter::chkIsValid() {
                     && _input.size() > 1 && *(it + 1) != '.') { // 0으로 시작, 0뿐이 아님
             return false;
         } else if (!isdigit(c)) {
+            if (_input.size() == 1 && isprint(c))
+                return true;
             if (!IsSpecialStr(it))
                 return false;
             break ;

@@ -10,10 +10,10 @@ struct Data {
 
 class Serializer{
 	private:
-		Serializer() {};
-		~Serializer() {};
-		Serializer(Serializer const & src) { src.deserialize(0); };
-		Serializer &operator=(Serializer const & rhs) { rhs.deserialize(0); return *this; };
+		Serializer();
+		~Serializer();
+		Serializer(Serializer const & src);
+		Serializer &operator=(Serializer const & rhs);
 
 	public: 
 		static uintptr_t	serialize(Data *ptr);

@@ -1,10 +1,9 @@
 #include "Base.hpp"
-#include "A.hpp"
-#include "B.hpp"
-#include "C.hpp"
 #include <cstdlib>
 #include <ctime>
 #include <iostream>
+
+static bool	tryCast(const Base &p, char type);
 
 Base* generate(void){
 	Base *output;
@@ -34,33 +33,37 @@ Base* generate(void){
 
 void	identify(Base *p){
 	if (dynamic_cast< A * >(p))
-		std::cout << "Type 'A'" << std::endl;
+		std::cout << "'A'" << std::endl;
 	else if (dynamic_cast< B * >(p))
-		std::cout << "Type 'B'" << std::endl;
+		std::cout << "'B'" << std::endl;
 	else if (dynamic_cast< C * >(p))
-		std::cout << "Type 'C'" << std::endl;
+		std::cout << "'C'" << std::endl;
 	else
 		std::cout << "I don't know..." << std::endl;
 }
 
 void	identify(Base &p){
+	if (tryCast(p, 'A') || tryCast(p, 'B') || tryCast(p, 'C'))
+		return ;
+}
+
+static bool	tryCast(const Base &p, char type){
 	try {
-        A& a = dynamic_cast<A&>(p);
-		A aa(a);
-        std::cout << "Type 'A'" << std::endl;
-    } catch (const std::bad_cast& eA) {
-        try {
-            B& b = dynamic_cast<B&>(p);
-			B bb(b);
-            std::cout << "Type 'B'" << std::endl;
-        } catch (const std::bad_cast& eB) {
-            try {
-                C& c = dynamic_cast<C&>(p);
-				C cc(c);
-                std::cout << "Type 'C'" << std::endl;
-            } catch (const std::bad_cast& eC) {
-                std::cout << "I don't know" << std::endl;
-            }
-        }
-    }
+		if (type == 'A') {
+			(void) dynamic_cast< const A& > (p);
+		}
+		else if (type == 'B'){
+			(void) dynamic_cast< const B& > (p);
+		}
+		else if (type == 'C'){
+			(void) dynamic_cast< const C& > (p);
+		}
+
+		std::cout << "'" << type << "'" << std::endl;
+
+		return true;
+	}
+	catch (std::exception &){
+		return false;		
+	}
 }
