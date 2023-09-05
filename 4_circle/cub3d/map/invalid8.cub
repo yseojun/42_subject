@@ -1,0 +1,17 @@
+NO ./textures/wood.xpm
+SO ./textures/wood.xpm
+WE ./textures/wood.xpm
+EA ./textures/wood.xpm
+
+F 0,0,0
+C 255,255,255
+
+1111111111
+1000000001
+1000000001
+1000000001
+
+1000000001
+10000N0001
+1000000001
+1111111111
