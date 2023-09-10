@@ -12,7 +12,7 @@ class Array {
 	public:
 		Array() : _size(0), _data(NULL) {}
 
-		explicit Array(std::size_t n) 
+		Array(std::size_t n) 
 		: _size(n), _data(NULL) {
 			if (_size)
 				_data = new T[_size];
@@ -23,7 +23,7 @@ class Array {
 			if (_size)
 				_data = new T[_size];
 			for (std::size_t i = 0 ; i < _size ; ++i)
-				_data[i] = _size;
+				_data[i] = a[i];
 		}
 
 		~Array() {
