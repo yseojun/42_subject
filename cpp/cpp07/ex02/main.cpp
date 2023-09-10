@@ -1,27 +1,68 @@
 #include <iostream>
-#include <stdexcept>
-
 #include "Array.hpp"
 
-int main() {
-    try {
-        // Testing the Array class template
-        Array<int> intArray(5);
-        for (unsigned int i = 0; i < intArray.size(); ++i) {
-            intArray[i] = i * 10;
-        }
+#define MAX_VAL 750
+int main(int, char**)
+{
+    Array<int> numbers(MAX_VAL);
 
-        std::cout << "Element at index 2: " << intArray[2] << std::endl;
-        std::cout << "Array size: " << intArray.size() << std::endl;
+    // const test
+    std::cout << "TEST 0" << std::endl;
+    const Array<int> numbers2(MAX_VAL);
+    std::cout << numbers2[0] << std::endl;
+    // const test
 
-        Array<int> copyArray = intArray; // Copy constructor
-        copyArray[2] = 99; // Modifying the copy does not affect the original
-
-        std::cout << "Copied element at index 2: " << copyArray[2] << std::endl;
-        std::cout << "Original element at index 2: " << intArray[2] << std::endl;
-    } catch (const std::exception& e) {
-        std::cerr << "Error: " << e.what() << std::endl;
+    int* mirror = new int[MAX_VAL];
+    srand(time(NULL));
+    std::cout << "TEST 1" << std::endl;
+    for (int i = 0; i < MAX_VAL; i++)
+    {
+        const int value = rand();
+        numbers[i] = value;
+        mirror[i] = value;
     }
 
+    std::cout << "TEST 2" << std::endl;
+    {
+        Array<int> tmp = numbers;
+        Array<int> test(tmp);
+    }
+
+    std::cout << "TEST 3" << std::endl;
+    for (int i = 0; i < MAX_VAL; i++)
+    {
+        if (mirror[i] != numbers[i])
+        {
+            std::cerr << "didn't save the same value!!" << std::endl;
+            return 1;
+        }
+    }
+
+    std::cout << "TEST 4" << std::endl;
+    try
+    {
+        numbers[-2] = 0;
+    }
+    catch(const std::exception& e)
+    {
+        std::cerr << e.what() << '\n';
+    }
+    std::cout << "TEST 5" << std::endl;
+    try
+    {
+        numbers[MAX_VAL] = 0;
+    }
+    catch(const std::exception& e)
+    {
+        std::cerr << e.what() << '\n';
+    }
+
+    std::cout << "TEST 6" << std::endl;
+    for (int i = 0; i < MAX_VAL; i++)
+    {
+        numbers[i] = rand();
+        // std::cout << i << ": " << numbers[i] << std::endl;
+    }
+    delete [] mirror;
     return 0;
 }

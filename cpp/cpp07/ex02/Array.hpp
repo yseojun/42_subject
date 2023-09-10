@@ -23,7 +23,7 @@ class Array {
 			if (_size)
 				_data = new T[_size];
 			for (std::size_t i = 0 ; i < _size ; ++i)
-				_data[i] = a[i];
+				_data[i] = _size;
 		}
 
 		~Array() {
