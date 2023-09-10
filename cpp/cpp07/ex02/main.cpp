@@ -26,6 +26,9 @@ int main(int, char**)
     {
         Array<int> tmp = numbers;
         Array<int> test(tmp);
+        tmp[0] = 10;
+        std::cout << "tmp : " << tmp[0] << std::endl;
+        std::cout << "numbers : " << numbers[0] << std::endl;
     }
 
     std::cout << "TEST 3" << std::endl;
