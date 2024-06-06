@@ -26,12 +26,12 @@ void BitcoinExchange::loadDatabase(const std::string &filename) {
   double rate;
 
   if (!file.is_open()) {
-    std::cerr << "Error: could not open file." << std::endl;
+    std::cout << "Error: could not open file." << std::endl;
     exit(EXIT_FAILURE);
   }
 
   if (!std::getline(file, line)) {
-    std::cerr << "Error: file is empty." << std::endl;
+    std::cout << "Error: file is empty." << std::endl;
     exit(EXIT_FAILURE);
   }
 
@@ -46,7 +46,7 @@ void BitcoinExchange::loadDatabase(const std::string &filename) {
       rate = std::stod(rateStr);
       this->exchangeRates[date] = rate;
     } catch (const std::invalid_argument &e) {
-      std::cerr << "Error: invalid rate value in line: " << line << std::endl;
+      std::cout << "Error: invalid rate value in line: " << line << std::endl;
     }
   }
 }
@@ -56,12 +56,12 @@ void BitcoinExchange::processInput(const std::string &inputFile) {
   std::string line, date, valueStr;
 
   if (!file.is_open()) {
-    std::cerr << "Error: could not open file." << std::endl;
+    std::cout << "Error: could not open file." << std::endl;
     return;
   }
 
   if (!std::getline(file, line)) {
-    std::cerr << "Error: file is empty." << std::endl;
+    std::cout << "Error: file is empty." << std::endl;
     exit(EXIT_FAILURE);
   }
 
@@ -74,21 +74,21 @@ void BitcoinExchange::processInput(const std::string &inputFile) {
         char *end;
         double value = std::strtod(valueStr.c_str(), &end);
         if (*end != '\0') {
-          std::cerr << "Error: bad input => " << line << std::endl;
+          std::cout << "Error: bad input => " << line << std::endl;
         } else if (value < 0) {
-          std::cerr << "Error: not a positive number." << std::endl;
+          std::cout << "Error: not a positive number." << std::endl;
         } else if (value > 1000) {
-          std::cerr << "Error: too large a number." << std::endl;
+          std::cout << "Error: too large a number." << std::endl;
         } else {
           double rate = getExchangeRate(date);
           std::cout << date << " => " << value << " = " << value * rate
                     << std::endl;
         }
       } else {
-        std::cerr << "Error: bad input => " << line << std::endl;
+        std::cout << "Error: bad input => " << line << std::endl;
       }
     } else {
-      std::cerr << "Error: bad input => " << line << std::endl;
+      std::cout << "Error: bad input => " << line << std::endl;
     }
   }
 }

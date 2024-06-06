@@ -8,7 +8,7 @@ int main(int ac, char **av) {
   try {
     RPN rpn(av[1]);
   } catch (const std::exception &e) {
-    std::cerr << e.what() << std::endl;
+    std::cout << e.what() << std::endl;
     return (EXIT_FAILURE);
   }
   return (EXIT_SUCCESS);

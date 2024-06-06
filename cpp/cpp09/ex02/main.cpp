@@ -8,7 +8,7 @@
 
 int main(int argc, char *argv[]) {
   if (argc < 2) {
-    std::cerr << "Usage: " << argv[0] << " <numbers...>" << std::endl;
+    std::cout << "Usage: " << argv[0] << " <numbers...>" << std::endl;
     return 1;
   }
 
@@ -17,7 +17,7 @@ int main(int argc, char *argv[]) {
   for (int i = 1; i < argc; ++i) {
     int num = std::atoi(argv[i]);
     if (num < 0) {
-      std::cerr << "Error: Negative numbers are not allowed: " << num
+      std::cout << "Error: Negative numbers are not allowed: " << num
                 << std::endl;
       return 1;
     }
