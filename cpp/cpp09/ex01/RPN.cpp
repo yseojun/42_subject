@@ -1,5 +1,16 @@
 #include "RPN.hpp"
 
+RPN::RPN() {}
+
+RPN::~RPN() {}
+
+RPN::RPN(const RPN &copy) { *this = copy; }
+
+RPN &RPN::operator=(const RPN &copy) {
+  (void)copy;
+  return (*this);
+}
+
 RPN::RPN(const std::string &str) {
   std::stringstream ss(str);
   std::string tmp;
@@ -8,6 +19,8 @@ RPN::RPN(const std::string &str) {
       calculate(tmp);
     } else if (tmp.length() == 1 && isdigit(tmp[0])) {
       _stack.push(tmp[0] - '0');
+    } else {
+      throw std::invalid_argument("Error: Invalid input.");
     }
   }
   printStack();
@@ -51,13 +64,4 @@ void RPN::printStack() {
     throw std::invalid_argument("Error");
   }
   std::cout << _stack.top() << std::endl;
-}
-
-// constructor
-RPN::RPN() {}
-RPN::~RPN() {}
-RPN::RPN(const RPN &copy) { *this = copy; }
-RPN &RPN::operator=(const RPN &copy) {
-  (void)copy;
-  return (*this);
 }

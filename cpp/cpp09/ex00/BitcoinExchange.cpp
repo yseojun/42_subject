@@ -1,102 +1,114 @@
 #include "BitcoinExchange.hpp"
-
-BitcoinExchange::BitcoinExchange() {}
-BitcoinExchange::~BitcoinExchange() {}
+#include <cstdlib>
+#include <fstream>
+#include <sstream>
 
 BitcoinExchange::BitcoinExchange(const std::string &filename) {
-  makeMap(filename);
+  loadDatabase(filename);
 }
 
-BitcoinExchange::BitcoinExchange(const BitcoinExchange &copy) { *this = copy; }
-
-BitcoinExchange &BitcoinExchange::operator=(const BitcoinExchange &copy) {
-  (void)copy;
-  return (*this);
+BitcoinExchange::BitcoinExchange(const BitcoinExchange &other) {
+  exchangeRates = other.exchangeRates;
 }
 
-/* function */
-void BitcoinExchange::makeMap(const std::string &filename) {
-  std::ifstream file(filename);
-  std::string line;
-  std::string key;
-  double value;
+BitcoinExchange::~BitcoinExchange() {}
 
-  if (file.is_open()) {
-    while (std::getline(file, line)) {
-      std::stringstream ss(line);
-      ss >> key >> value;
-      _map[key] = value;
+BitcoinExchange &BitcoinExchange::operator=(const BitcoinExchange &other) {
+  if (this != &other) {
+    exchangeRates = other.exchangeRates;
+  }
+  return *this;
+}
+
+void BitcoinExchange::loadDatabase(const std::string &filename) {
+  std::ifstream file(filename.c_str());
+  std::string line, date;
+  double rate;
+
+  if (!file.is_open()) {
+    std::cerr << "Error: could not open file." << std::endl;
+    exit(EXIT_FAILURE);
+  }
+
+  if (!std::getline(file, line)) {
+    std::cerr << "Error: file is empty." << std::endl;
+    exit(EXIT_FAILURE);
+  }
+
+  while (std::getline(file, line)) {
+    std::istringstream ss(line);
+    std::getline(ss, date, ',');
+    date.erase(date.find_last_not_of(" \n\r\t") + 1);
+    std::string rateStr;
+    std::getline(ss, rateStr);
+    rateStr.erase(0, rateStr.find_first_not_of(" \n\r\t"));
+    try {
+      rate = std::stod(rateStr);
+      this->exchangeRates[date] = rate;
+    } catch (const std::invalid_argument &e) {
+      std::cerr << "Error: invalid rate value in line: " << line << std::endl;
     }
-    file.close();
   }
 }
 
-void BitcoinExchange::inputFile(std::fstream &file) {
-  std::string line;
+void BitcoinExchange::processInput(const std::string &inputFile) {
+  std::ifstream file(inputFile.c_str());
+  std::string line, date, valueStr;
 
-  if (file.is_open()) {
-    while (std::getline(file, line)) {
-      try {
-        printLine(line);
-      } catch (const std::exception &e) {
-        std::cerr << e.what() << std::endl;
+  if (!file.is_open()) {
+    std::cerr << "Error: could not open file." << std::endl;
+    return;
+  }
+
+  if (!std::getline(file, line)) {
+    std::cerr << "Error: file is empty." << std::endl;
+    exit(EXIT_FAILURE);
+  }
+
+  while (std::getline(file, line)) {
+    std::istringstream ss(line);
+    if (std::getline(ss, date, '|') && std::getline(ss, valueStr)) {
+      date.erase(date.find_last_not_of(" \n\r\t") + 1);
+      valueStr.erase(0, valueStr.find_first_not_of(" \n\r\t"));
+      if (isValidDate(date)) {
+        char *end;
+        double value = std::strtod(valueStr.c_str(), &end);
+        if (*end != '\0') {
+          std::cerr << "Error: bad input => " << line << std::endl;
+        } else if (value < 0) {
+          std::cerr << "Error: not a positive number." << std::endl;
+        } else if (value > 1000) {
+          std::cerr << "Error: too large a number." << std::endl;
+        } else {
+          double rate = getExchangeRate(date);
+          std::cout << date << " => " << value << " = " << value * rate
+                    << std::endl;
+        }
+      } else {
+        std::cerr << "Error: bad input => " << line << std::endl;
       }
-      file.close();
+    } else {
+      std::cerr << "Error: bad input => " << line << std::endl;
     }
   }
 }
 
-void BitcoinExchange::printLine(std::string &line) {
-  std::stringstream ss(line);
-  std::string date;
-  double value;
-
-  ss >> date >> value;
-  // bad input 예를들면 value가 없는 경우
-  if (ss.fail()) {
-    throw std::invalid_argument("Error: Bad input. => " + line);
+double BitcoinExchange::getExchangeRate(const std::string &date) {
+  std::map<std::string, double>::iterator it =
+      this->exchangeRates.lower_bound(date);
+  if (it != this->exchangeRates.begin() &&
+      (it == this->exchangeRates.end() || it->first != date)) {
+    --it;
   }
-  if (!isValidDate(date))
-    throw std::invalid_argument("Error: invalid date.");
-  if (!isValidValue(std::to_string(value)))
-    throw std::invalid_argument("Error: invalid value.");
-
-  // map에 날짜보다 이전 날짜 데이터가 있는 경우 그 데이터를 이용
-  if (_map.lower_bound(date) != _map.begin()) {
-    std::map<std::string, double>::iterator it = _map.lower_bound(date);
-    std::cout << it->first << " " << it->second << std::endl;
-  } else {
-    std::cout << "No data" << std::endl;
-  }
+  return it->second;
 }
 
-bool isValidDate(const std::string &date) {
-  if (date.size() != 10)
-    return false;
-  if (date[4] != '-' || date[7] != '-')
-    return false;
-  for (size_t i = 0; i < date.size(); i++) {
-    if (i == 4 || i == 7)
-      continue;
-    if (date[i] < '0' || date[i] > '9')
-      return false;
-  }
-  return true;
+bool BitcoinExchange::isValidDate(const std::string &date) {
+  return date.size() == 10 && date[4] == '-' && date[7] == '-';
 }
 
-/* 양수, 0~1000 */
-/* 음수x*/
-bool isValidValue(const std::string &value) {
-  if (value[0] == '-')
-    return false;
-  if (value.size() > 5)
-    return false;
-  for (size_t i = 0; i < value.size(); i++) {
-    if (value[i] < '0' || value[i] > '9')
-      return false;
-  }
-  int num = std::stoi(value);
-  if (num < 0 || num > 1000)
-    return false;
-  return true;
+bool BitcoinExchange::isValidValue(const std::string &value) {
+  char *end;
+  double val = std::strtod(value.c_str(), &end);
+  return *end == '\0' && val >= 0 && val <= 1000;
 }
